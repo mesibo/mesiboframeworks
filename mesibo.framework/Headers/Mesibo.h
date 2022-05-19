@@ -688,6 +688,8 @@
 -(BOOL) isEndToEndEncrypted;
 -(BOOL) isPresence;
 -(BOOL) isMissedCall;
+-(BOOL) isIncomingCall;
+-(BOOL) isOutgoingCall;
 -(BOOL) isCall;
 -(BOOL) isVoiceCall;
 -(BOOL) isVideoCall;
