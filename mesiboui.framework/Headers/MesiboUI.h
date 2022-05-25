@@ -78,6 +78,7 @@
 @property (assign, nonatomic) uint32_t mToolbarTextColor;
 @property (assign, nonatomic) uint32_t mUserListTypingIndicationColor;
 @property (assign, nonatomic) uint32_t mUserListStatusColor;
+@property (assign, nonatomic) uint32_t mUserListMaxRows;
 @property (assign, nonatomic) uint32_t messageBackgroundColorForMe;
 @property (assign, nonatomic) uint32_t messageBackgroundColorForPeer;
 @property (assign, nonatomic) uint32_t messagingBackgroundColor;
