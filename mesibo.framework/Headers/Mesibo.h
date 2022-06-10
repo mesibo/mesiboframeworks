@@ -498,6 +498,7 @@
 -(void) blockCalls:(BOOL) enable;
 -(void) blockVideoCalls:(BOOL) enable;
 -(void) blockGroupMessages:(BOOL) enable;
+-(void) blockProfile:(BOOL) enable;
 -(void) blockProfileSubscription:(BOOL) enable;
 -(BOOL) isBlocked;
 -(BOOL) isMessageBlocked;
@@ -731,7 +732,7 @@
 -(void) setSensitivity:(uint32_t) val;
 -(uint32_t) getSensitivity;
 
-
+-(int) getCallDuration;
 
 
 // WARNING - not to be used directly - (private function)
