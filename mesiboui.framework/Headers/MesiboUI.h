@@ -57,6 +57,9 @@
 @property (copy, nonatomic) NSString *noNetworkIndicationTitle;
 @property (copy, nonatomic) NSString *suspendedIndicationTitle;
 
+@property (copy, nonatomic) NSString *typingIndicationTitle;
+@property (copy, nonatomic) NSString *joinedIndicationTitle;
+
 @property (copy, nonatomic) NSString *groupDeletedTitle;
 @property (copy, nonatomic) NSString *groupNotMemberTitle;
 
@@ -95,6 +98,27 @@
 @property (assign, nonatomic) uint64_t mMaxVideoFileSize;
 
 @property (assign, nonatomic) BOOL mEnableNotificationBadge;
+
+@property (copy, nonatomic) NSString *recentUsersTitle;
+@property (copy, nonatomic) NSString *allUsersTitle;
+@property (copy, nonatomic) NSString *groupMembersTitle;
+
+@property (copy, nonatomic) NSString *today;
+@property (copy, nonatomic) NSString *yesterday;
+
+@property (copy, nonatomic) NSString *shareMediaTitle;
+@property (copy, nonatomic) NSString *shareMediaSubTitle;
+@property (copy, nonatomic) NSString *shareMediaCameraTitle;
+@property (copy, nonatomic) NSString *shareMediaGalleryTitle;
+@property (copy, nonatomic) NSString *shareMediaAudioTitle;
+@property (copy, nonatomic) NSString *shareMediaLocationTitle;
+@property (copy, nonatomic) NSString *shareMediaDocumentTitle;
+@property (copy, nonatomic) NSString *cancelTitle;
+
+
+
+
+
 
 
 @end
