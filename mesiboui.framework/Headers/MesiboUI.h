@@ -86,6 +86,9 @@
 @property (assign, nonatomic) uint32_t messageBackgroundColorForPeer;
 @property (assign, nonatomic) uint32_t messagingBackgroundColor;
 @property (assign, nonatomic) uint32_t messageInputBackgroundColor;
+@property (assign, nonatomic) uint32_t messageInputButtonsColor;
+@property (assign, nonatomic) uint32_t messageInputBorderColor;
+@property (assign, nonatomic) uint32_t messageInputTextColor;
 @property (assign, nonatomic) uint32_t searchBarBackgroundColor;
 
 @property (assign, nonatomic) int mediaButtonPosition;
