@@ -89,6 +89,29 @@
 @property (assign, nonatomic) uint32_t messageInputButtonsColor;
 @property (assign, nonatomic) uint32_t messageInputBorderColor;
 @property (assign, nonatomic) uint32_t messageInputTextColor;
+
+@property (assign, nonatomic) int customFontSize;
+@property (assign, nonatomic) uint32_t customTextColor;
+@property (assign, nonatomic) uint32_t customBackgroundColor;
+@property (assign, nonatomic) uint32_t e2eeBackgroundColor;
+
+@property (assign, nonatomic) int dateFontSize;
+@property (assign, nonatomic) uint32_t dateTextColor;
+@property (assign, nonatomic) uint32_t dateBackgroundColor;
+
+@property (assign, nonatomic) uint32_t titleTextColor;
+@property (assign, nonatomic) int titleFontSize;
+@property (assign, nonatomic) UIFont *titleFont;
+
+@property (assign, nonatomic) uint32_t timeTextColor;
+
+@property (assign, nonatomic) uint32_t messageTextColor;
+@property (assign, nonatomic) uint32_t messageDeletedTextColor;
+@property (assign, nonatomic) uint32_t messagePictureTextColor;
+@property (assign, nonatomic) uint32_t messageReplyTextColor;
+
+
+
 @property (assign, nonatomic) uint32_t searchBarBackgroundColor;
 
 @property (assign, nonatomic) int mediaButtonPosition;
