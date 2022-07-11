@@ -89,6 +89,10 @@
 @property (assign, nonatomic) uint32_t messageInputButtonsColor;
 @property (assign, nonatomic) uint32_t messageInputBorderColor;
 @property (assign, nonatomic) uint32_t messageInputTextColor;
+@property (assign, nonatomic) uint32_t messageInputTextBackgroundColor;
+@property (assign, nonatomic) int messageInputTextCornerRadius;
+
+
 
 @property (assign, nonatomic) int customFontSize;
 @property (assign, nonatomic) uint32_t customTextColor;
