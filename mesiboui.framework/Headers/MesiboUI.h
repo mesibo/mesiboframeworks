@@ -90,7 +90,7 @@
 @property (assign, nonatomic) uint32_t messageInputBorderColor;
 @property (assign, nonatomic) uint32_t messageInputTextColor;
 @property (assign, nonatomic) uint32_t messageInputTextBackgroundColor;
-@property (assign, nonatomic) int messageInputTextCornerRadius;
+@property (assign, nonatomic) int messageInputTextCornerRadiusRatio;
 
 
 
@@ -145,6 +145,9 @@
 @property (copy, nonatomic) NSString *shareMediaDocumentTitle;
 @property (copy, nonatomic) NSString *cancelTitle;
 
+@property (copy, nonatomic) NSString *missedVoiceCallTitle;
+@property (copy, nonatomic) NSString *missedVideoCallTitle;
+@property (copy, nonatomic) NSString *deletedMessageTitle;
 
 
 
