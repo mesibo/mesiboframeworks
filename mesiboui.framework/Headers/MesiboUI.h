@@ -135,6 +135,7 @@
 
 @property (copy, nonatomic) NSString *today;
 @property (copy, nonatomic) NSString *yesterday;
+@property (copy, nonatomic) NSString *at;
 
 @property (copy, nonatomic) NSString *shareMediaTitle;
 @property (copy, nonatomic) NSString *shareMediaSubTitle;
