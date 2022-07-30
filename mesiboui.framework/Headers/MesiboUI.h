@@ -69,6 +69,8 @@
 
 
 @property (copy, nonatomic) NSString *emptyUserListMessage;
+@property (copy, nonatomic) NSString *emptyMessageListMessage;
+@property (copy, nonatomic) NSString *emptySearchListMessage;
 @property (copy, nonatomic) UIFont *emptyUserListMessageFont;
 @property (assign, nonatomic) int emptyUserListMessageColor;
 
@@ -149,6 +151,14 @@
 @property (copy, nonatomic) NSString *missedVoiceCallTitle;
 @property (copy, nonatomic) NSString *missedVideoCallTitle;
 @property (copy, nonatomic) NSString *deletedMessageTitle;
+
+@property (copy, nonatomic) NSString *deleteMessagesTitle;
+@property (copy, nonatomic) NSString *deleteForEveryoneTitle;
+@property (copy, nonatomic) NSString *deleteForMeTitle;
+@property (copy, nonatomic) NSString *deleteTitle;
+@property (copy, nonatomic) NSString *deleteAlertTitle;
+
+
 
 
 

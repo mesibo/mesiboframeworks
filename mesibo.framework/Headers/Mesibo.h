@@ -1342,6 +1342,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 //********************** Utility Functions *********************************************
 
 -(uint32_t) random;
+-(uint32_t) getSenderMessageId:(uint64_t)mid;
 
 -(BOOL) createFile:(NSString *)path fileName:(NSString *)fileName data:(NSData *)data overwrite:(BOOL)overwrite;
 -(BOOL) createPath:(NSString *)path;
