@@ -834,6 +834,8 @@ typedef MesiboProfile MesiboAddress;
 @property (nonatomic) NSString *message;
 @property (nonatomic) uint64_t mid;
 @property (nonatomic) UIImage *image;
+@property (nonatomic) NSString *imageUrl;
+@property (nonatomic) NSData *imageData;
 
 -(void) setData:(NSObject *)data;
 -(NSObject *) getData;
