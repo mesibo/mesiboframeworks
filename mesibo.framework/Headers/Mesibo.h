@@ -757,10 +757,11 @@ typedef MesiboProfile MesiboAddress;
 #define MESIBO_FILETYPE_IMAGE             1
 #define MESIBO_FILETYPE_VIDEO             2
 #define MESIBO_FILETYPE_AUDIO             3
-#define MESIBO_FILETYPE_LOCATION          4
 #define MESIBO_FILETYPE_PROFILEIMAGE      5
 #define MESIBO_FILETYPE_PROFILETHUMBNAIL  6
 #define MESIBO_FILETYPE_OTHER             10
+#define MESIBO_FILETYPE_LOCATION          200
+
 
 #define MESIBO_FILESOURCE_MESSAGE         0
 #define MESIBO_FILESOURCE_PROFILE         1

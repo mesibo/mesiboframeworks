@@ -49,6 +49,7 @@
 @property (copy, nonatomic) NSString *selectContactTitle;
 @property (copy, nonatomic) NSString *selectGroupContactsTitle;
 @property (copy, nonatomic) NSString *forwardTitle;
+@property (copy, nonatomic) NSString *forwardedTitle;
 
 @property (copy, nonatomic) NSString *userOnlineIndicationTitle;
 @property (copy, nonatomic) NSString *onlineIndicationTitle;
@@ -108,6 +109,10 @@
 @property (assign, nonatomic) uint32_t titleTextColor;
 @property (assign, nonatomic) int titleFontSize;
 @property (assign, nonatomic) UIFont *titleFont;
+
+@property (assign, nonatomic) UIFont *headingFont;
+@property (assign, nonatomic) int headingFontSize;
+@property (assign, nonatomic) uint32_t headingTextColor;
 
 @property (assign, nonatomic) uint32_t timeTextColor;
 
