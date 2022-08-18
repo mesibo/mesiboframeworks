@@ -1351,6 +1351,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(BOOL) createPath:(NSString *)path;
 -(BOOL) fileExists:(NSString *)fileName;
 -(BOOL) deleteFile:(NSString *)path;
+-(NSString *) getFileName:(NSString *) path;
 -(BOOL) renameFile:(NSString *)srcFile destFile:(NSString *)destFile forced:(BOOL) forced ;
 
 // phone functions, used in demo app
