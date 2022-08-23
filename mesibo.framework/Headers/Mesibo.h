@@ -585,6 +585,9 @@
 -(int) sendLocation:(uint32_t)msgid location:(MesiboLocation *) location;
 -(int) sendPresence:(uint32_t)msgid presence:(int)presence interval:(int)interval;
 -(int) sendActivity:(uint32_t)msgid activity:(int)activity interval:(int)interval;
+
+
+-(int) forwardMessage:(uint32_t)msgid forwardid:(uint64_t)forwardid markForwarded:(BOOL)markForwarded;
 -(int) forwardMessage:(uint32_t)msgid forwardid:(uint64_t)forwardid;
 -(BOOL)deleteMessages:(uint64_t)ts;
 -(MesiboReadSession *) createReadSession:(id) delegate;
@@ -1265,6 +1268,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 //TBD, add title also (already have message)
 -(int) sendPresence:(MesiboParams *)p msgid:(uint32_t)msgid presence:(int)presence interval:(int)interval;
 -(int) sendActivity:(MesiboParams *)p msgid:(uint32_t)msgid activity:(int)activity interval:(int)interval;
+-(int) forwardMessage:(MesiboParams *)p msgid:(uint32_t)msgid forwardid:(uint64_t)forwardid markForwarded:(BOOL)markForwarded;
 -(int) forwardMessage:(MesiboParams *)p msgid:(uint32_t)msgid forwardid:(uint64_t)forwardid;
 -(BOOL) resend:(uint32_t)msgid;
 -(int) cancel:(int)type msgid:(uint32_t)msgid;
