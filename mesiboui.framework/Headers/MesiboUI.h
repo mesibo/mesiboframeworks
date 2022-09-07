@@ -25,6 +25,11 @@
 @optional
 @end
 
+#define LOCATION_APP_APPLE      0
+#define LOCATION_APP_GOOGLEMAP  1
+#define LOCATION_APP_PROMPT     2
+#define LOCATION_APP_PROMPTONCE 3
+
 @interface MesiboUiOptions : NSObject
 @property (nonatomic) UIImage *contactPlaceHolder;
 @property (nonatomic) UIImage *messagingBackground;
@@ -130,6 +135,7 @@
 @property (assign, nonatomic) int docButtonPosition;
 @property (assign, nonatomic) int audioButtonPosition;
 
+@property (assign, nonatomic) int preferredLocationApp;
 
 @property (assign, nonatomic) uint64_t mMaxImageFileSize;
 @property (assign, nonatomic) uint64_t mMaxVideoFileSize;

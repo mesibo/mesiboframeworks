@@ -787,6 +787,7 @@ typedef MesiboProfile MesiboAddress;
 @property (nonatomic) NSString *launchUrl;
 @property (nonatomic) BOOL userInteraction;
 @property (nonatomic) BOOL secure;
+@property (nonatomic) BOOL externalLink;
 @property (nonatomic) NSString *title;
 @property (nonatomic) NSString *message;
 @property (nonatomic) uint64_t mid;
