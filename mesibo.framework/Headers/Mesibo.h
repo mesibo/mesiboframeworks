@@ -969,6 +969,7 @@ typedef MesiboProfile MesiboAddress;
 -(int) sendToWebhook;
 -(void) setForwarded:(NSArray<NSNumber *> * _Nonnull) fids;
 -(void) setForwardedMid:(uint64_t) fid;
+-(MesiboMessage * _Nonnull) forward:(MesiboProfile * _Nonnull) profile;
 -(int) save;
 -(BOOL) delete;
 -(BOOL) wipe;
@@ -1015,6 +1016,7 @@ typedef MesiboProfile MesiboAddress;
 -(int) read:(int)count;
 -(void)sync:(int)count listener:(id _Nullable)listener ;
 -(void) setThreadId:(uint64_t) tid;
+-(void) setQuery:(NSString * _Nullable) query;
 
 -(int) getMessageCount:(int) status;
 -(int) getTotalMessageCount;
