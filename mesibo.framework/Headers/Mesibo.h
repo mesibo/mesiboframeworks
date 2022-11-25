@@ -876,6 +876,15 @@ typedef MesiboProfile MesiboAddress;
 -(int) sendOnline;
 -(int) sendOffline;
 -(int) sendRequest;
+
+-(BOOL) isRequest;
+-(BOOL) isOnline;
+-(BOOL) isOffline;
+-(BOOL) isTyping;
+-(BOOL) isTypingCleared;
+-(BOOL) isChatting;
+-(BOOL) hasJoined;
+-(BOOL) hasLeft;
 @end
 
 // For internal use only - will be for public use from v2.0
