@@ -726,6 +726,9 @@
 -(BOOL) isFailed;
 -(BOOL) isMessageStatusInProgress;
 
+-(BOOL) isDate;
+-(BOOL) isMessage;
+
 -(BOOL) isDestinedFor:(MesiboProfile * _Nonnull) profile;
 
 -(void) setAge:(uint32_t) age;
@@ -991,6 +994,7 @@ typedef MesiboProfile MesiboAddress;
 -(BOOL) wipeAndRecall;
 -(BOOL) mayBeRetracted;
 -(int) getProgress;
+-(MesiboMessage * _Nonnull) cloneDate;
 -(void) setString:(NSString * _Nonnull)name value:(NSString * _Nonnull) value;
 -(void) setLong:(NSString * _Nonnull)name value:(long) value;
 -(void) setInt:(NSString * _Nonnull)name value:(int) value;
