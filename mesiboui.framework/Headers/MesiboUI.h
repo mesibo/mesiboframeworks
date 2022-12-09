@@ -53,7 +53,6 @@
 @property (nonatomic) BOOL enableBackButton;
 @property (nonatomic) BOOL enableMessageButton;
 @property (nonatomic) BOOL hidesBottomBarWhenPushed;
-@property (nonatomic) BOOL emojify;
 
 @property (nonatomic) BOOL e2eIndicator;
 
