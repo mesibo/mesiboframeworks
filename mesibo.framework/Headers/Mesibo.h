@@ -435,13 +435,15 @@
 
 -(BOOL) isActive;
 
--(void) setArchived:(BOOL)enable;
+-(void) favorite:(BOOL)enable;
+-(void) archive:(BOOL)enable;
 -(void) setHidden:(BOOL) enable;
 -(void) setMuted:(BOOL) enable;
 -(void) toggleArchive;
 -(void) toggleHidden;
 -(void) toggleMute;
 -(BOOL) isArchived;
+-(BOOL) isFavorite;
 -(BOOL) isMuted;
 -(BOOL) isHidden;
 
