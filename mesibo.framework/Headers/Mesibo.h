@@ -44,8 +44,8 @@
 #define MESIBO_MSGSTATUS_CALLOUTGOING   0x17
 #define MESIBO_MSGSTATUS_CUSTOM         0x20
 
-#define MESIBO_MSGSTATUS_DELETED         0x21
-#define MESIBO_MSGSTATUS_WIPED           0x22
+//#define MESIBO_MSGSTATUS_DELETED         0x21
+//#define MESIBO_MSGSTATUS_WIPED           0x22
 #define MESIBO_MSGSTATUS_E2E             0x23
 
 // ONLY FOR UI USAGE
@@ -686,7 +686,9 @@
 -(void) enableBroadcast:(BOOL) enable;
 
 -(void) markDeleted:(BOOL) enable;
+-(void) markWiped:(BOOL) enable;
 -(BOOL) isDeleted;
+-(BOOL) isWiped;
 
 -(BOOL) isIncoming;
 -(BOOL) isOutgoing;
@@ -944,7 +946,7 @@ typedef MesiboProfile MesiboAddress;
 
 @property (nonatomic)  BOOL markForwarded;
 
-+(void) setDefaults:(MesiboMessage *) defaults;
++(void) setDefaults:(MesiboMessage * _Nullable) defaults;
 
 -(nonnull id)initWithPeer:(NSString * _Nonnull) peer;
 -(nonnull id)initWithGroupId:(uint32_t) groupid;
