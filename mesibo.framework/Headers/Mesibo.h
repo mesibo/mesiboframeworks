@@ -1403,6 +1403,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(void) hideInactiveGroupProfiles:(BOOL) reset;
 -(NSArray * _Nonnull) getSortedProfiles;
 -(NSArray * _Nonnull) getRecentProfiles;
+-(uint64_t) getLastProfileUpdateTimestamp;
 
 -(void) updateLookups;
 
