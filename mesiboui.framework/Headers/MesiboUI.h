@@ -53,6 +53,7 @@
 @property (nonatomic) BOOL enableBackButton;
 @property (nonatomic) BOOL enableMessageButton;
 @property (nonatomic) BOOL hidesBottomBarWhenPushed;
+@property (nonatomic) BOOL alwaysShowSearchBar;
 
 @property (nonatomic) BOOL e2eIndicator;
 
@@ -99,6 +100,7 @@
 @property (assign, nonatomic) uint32_t mUserListTypingIndicationColor;
 @property (assign, nonatomic) uint32_t mUserListStatusColor;
 @property (assign, nonatomic) uint32_t mUserListMaxRows;
+@property (assign, nonatomic) uint32_t userListBackgroundColor;
 @property (assign, nonatomic) uint32_t messageBackgroundColorForMe;
 @property (assign, nonatomic) uint32_t messageBackgroundColorForPeer;
 @property (assign, nonatomic) uint32_t titleBackgroundColorForMe;
@@ -139,6 +141,7 @@
 
 
 @property (assign, nonatomic) uint32_t searchBarBackgroundColor;
+@property (assign, nonatomic) uint32_t searchBarTintColor;
 
 @property (assign, nonatomic) int mediaButtonPosition;
 @property (assign, nonatomic) int locationButtonPosition;
