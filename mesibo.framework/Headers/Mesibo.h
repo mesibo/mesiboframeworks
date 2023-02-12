@@ -47,6 +47,10 @@
 //#define MESIBO_MSGSTATUS_DELETED         0x21
 //#define MESIBO_MSGSTATUS_WIPED           0x22
 #define MESIBO_MSGSTATUS_E2E             0x23
+#define MESIBO_MSGSTATUS_E2E             0x23
+#define MESIBO_MSGSTATUS_DATETIME        0x24
+#define MESIBO_MSGSTATUS_HEADER          0x25
+#define MESIBO_MSGSTATUS_INVISIBLE       0x26
 
 // ONLY FOR UI USAGE
 #define MESIBO_MSGSTATUS_TIMESTAMP      0x30
@@ -701,6 +705,8 @@
 -(BOOL) isUnread;
 -(BOOL) isSavedMessage;
 -(BOOL) isCustom;
+-(BOOL) isHeader;
+-(BOOL) isInvisible;
 -(BOOL) isModified; // depreciated
 -(BOOL) isModifiedByPeer;
 -(BOOL) isUpdated;
@@ -1409,7 +1415,8 @@ typedef void (^Mesibo_onRunHandler)(void);
 
 //********************** Utility Functions *********************************************
 
--(uint32_t) random;
+-(uint32_t) random __deprecated_msg("Use getUniqueMessageId instead.");;
+-(uint32_t) getUniqueMessageId;
 -(uint32_t) getSenderMessageId:(uint64_t)mid;
 
 -(BOOL) createFile:(NSString * _Nonnull)path fileName:(NSString * _Nonnull)fileName data:(NSData * _Nonnull)data overwrite:(BOOL)overwrite;
