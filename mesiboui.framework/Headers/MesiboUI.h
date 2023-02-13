@@ -306,7 +306,7 @@
 +(void) setListener:(id<MesiboUIListener> _Nullable) delegate;
 +(nullable id<MesiboUIListener>) getListener;
 
-+(MesiboScreen * _Nullable) getParentScreen:(id _Nonnull)view;
++(MesiboScreen * _Nullable) getParentScreen:(id _Nonnull)view NS_SWIFT_NAME(getParentScreen(_:));
 
 +(MesiboUiDefaults * _Nonnull) getUiDefaults NS_SWIFT_NAME(getUiDefaults());
 +(BOOL) addTarget:(id _Nonnull)parent screen:(MesiboScreen * _Nonnull)screen view:(id _Nonnull)view action:(SEL _Nonnull)action;
