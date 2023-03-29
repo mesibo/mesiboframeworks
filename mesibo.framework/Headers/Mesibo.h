@@ -1047,6 +1047,8 @@ typedef MesiboProfile MesiboAddress;
 -(double) getDouble:(NSString * _Nonnull) name defval:(double) defval;
 -(BOOL) getBoolean:(NSString * _Nonnull) name defval:(BOOL) defval;
 
+-(id _Nullable) getUiContext;
+-(void) setUiContext:(id _Nullable) context;
 
 #if 0
 +(MesiboMessage * _Nonnull) forPeer:(NSString * _Nonnull) peer;
