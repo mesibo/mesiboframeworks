@@ -304,7 +304,7 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 -(BOOL) groupCallJoinRoomUi:(id _Nonnull)parent;
 -(BOOL) groupCallUi:(id _Nonnull)parent profile:(MesiboProfile * _Nonnull)profile video:(BOOL)video publish:(BOOL)publish;
 
--(void) notify:(MesiboCallProperties *)cp;
+-(void) notify:(MesiboCallProperties * _Nonnull)cp;
 @end
 
 
