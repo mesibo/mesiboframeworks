@@ -98,6 +98,8 @@
 @required
 -(BOOL) MesiboUI_onInitScreen:(MesiboScreen * _Nonnull)screen NS_SWIFT_NAME(MesiboUI_onInitScreen(screen:));
 
+-(BOOL) MesiboUI_onActivateScreen:(MesiboScreen * _Nonnull)screen NS_SWIFT_NAME(MesiboUI_onActivateScreen(screen:));
+
 /* return height of the cell if creating custom cell - return -1 otherwise*/
 -(CGFloat) MesiboUI_onGetCustomRowHeight:(MesiboScreen * _Nonnull)screen row:(MesiboRow * _Nonnull) row NS_SWIFT_NAME(MesiboUI_onGetCustomRowHeight(screen:row:));
 
