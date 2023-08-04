@@ -238,6 +238,9 @@
 @property (assign, nonatomic) uint32_t messagePictureTextColor;
 @property (assign, nonatomic) uint32_t messageReplyTextColor;
 
+@property (assign, nonatomic) uint32_t deleteButtonColor;
+@property (assign, nonatomic) uint32_t unreadButtonColor;
+
 @property (assign, nonatomic) int mediaButtonPosition;
 @property (assign, nonatomic) int locationButtonPosition;
 @property (assign, nonatomic) int docButtonPosition;
@@ -278,6 +281,7 @@
 @property (copy, nonatomic, nonnull) NSString *deleteForMeTitle;
 @property (copy, nonatomic, nonnull) NSString *deleteTitle;
 @property (copy, nonatomic, nonnull) NSString *deleteAlertTitle;
+@property (copy, nonatomic, nonnull) NSString *unreadTitle;
 
 @property (assign, nonatomic) int verticalImageWidth;
 @property (assign, nonatomic) int horizontalImageWidth;

@@ -578,6 +578,7 @@
 -(int) getReceivedMessageCount;
 -(int) getUnreadMessageCount;
 -(int) getFailedMessageCount;
+-(int) unread;
 
 -(int) subscribeTransient:(uint32_t)type activity:(uint32_t)activity duration:(uint32_t) duration;
 
