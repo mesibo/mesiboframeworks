@@ -1398,7 +1398,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 //********************** File Transfer ********************************************
 
 -(BOOL) isFileTransferEnabled;
--(void) disableFileTransfer;
+-(void) enableFileTransfer:(BOOL) enable;
 -(NSString * _Nullable) getUploadUrl;
 -(NSString * _Nullable) getUploadAuthToken;
 -(void) setUploadUrl:(NSString * _Nullable)url authToken:(NSString * _Nullable) authToken;

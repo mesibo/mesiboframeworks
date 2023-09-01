@@ -118,6 +118,8 @@
  */
 -(BOOL) MesiboUI_onUpdateRow:(MesiboScreen * _Nonnull)screen row:(MesiboRow * _Nonnull) row last:(BOOL)last NS_SWIFT_NAME(MesiboUI_onUpdateRow(screen:row:last:));
 
+-(BOOL) MesiboUI_onClickedRow:(MesiboScreen * _Nonnull)screen row:(MesiboRow * _Nonnull) row  NS_SWIFT_NAME(MesiboUI_onClickedRow(screen:row:));
+
 /* You can implement addTarget or set tag for buttons */
 //-(BOOL) MesiboUI_onClicked:(MesiboScreen * _Nonnull)screen row:(MesiboRow * _Nullable)row view:(id _Nonnull)view;
 
@@ -286,6 +288,8 @@
 @property (assign, nonatomic) int verticalImageWidth;
 @property (assign, nonatomic) int horizontalImageWidth;
 
+@property (assign, nonatomic) UITableViewCellAccessoryType userListCellAccessoryType;
+
 @end
 
 @interface MesiboUserListScreenOptions : MesiboScreenOptions
@@ -305,6 +309,7 @@
 @interface MesiboMessageScreenOptions : MesiboScreenOptions
 @property (assign, nonatomic, nullable) MesiboProfile *profile;
 @property (assign, nonatomic, nullable) id<MesiboUIListener> listener;
+@property (assign, nonatomic, nullable) id<MesiboUIListener> ulistener;
 @property (assign, nonatomic) BOOL navigation;
 @end
 
