@@ -105,75 +105,6 @@
 
 
 
-
-
-// All status < 0x40 will keep call in progress - max status 0x7F (we can't go beyond that, as 0x80 will be treated as voice)
-#define MESIBO_CALLSTATUS_NONE                  0x00
-#define MESIBO_CALLSTATUS_INCOMING         0x01
-#define MESIBO_CALLSTATUS_INPROGRESS            0x02
-#define MESIBO_CALLSTATUS_RINGING               0x03
-#define MESIBO_CALLSTATUS_ANSWER                0x05
-#define MESIBO_CALLSTATUS_UPDATE                0x06
-#define MESIBO_CALLSTATUS_DTMF                  0x07
-#define MESIBO_CALLSTATUS_SDP                   0x08
-#define MESIBO_CALLSTATUS_MUTE                  0x09
-#define MESIBO_CALLSTATUS_UNMUTE                0x0A
-#define MESIBO_CALLSTATUS_HOLD                  0x0B
-#define MESIBO_CALLSTATUS_UNHOLD                0x0C
-
-#define MESIBO_CALLSTATUS_PING                  0x21
-#define MESIBO_CALLSTATUS_INFO                  0x23
-#define MESIBO_CALLSTATUS_ECHO                  0x24
-#define MESIBO_CALLSTATUS_REDIRECT              0x25
-
-//Local Status used by client
-#define MESIBO_CALLSTATUS_CHANNELUP             0x30
-#define MESIBO_CALLSTATUS_CONNECTED             0x30
-#define MESIBO_CALLSTATUS_QUALITY               0x31
-#define MESIBO_CALLSTATUS_RECONNECTING          0x32
-
-// Phone Specific ERRORs
-#define MESIBO_CALLSTATUS_COMPLETE              0x40
-#define MESIBO_CALLSTATUS_CANCEL                0x41
-#define MESIBO_CALLSTATUS_NOANSWER              0x42
-#define MESIBO_CALLSTATUS_BUSY                  0x43
-#define MESIBO_CALLSTATUS_UNREACHABLE           0x44
-#define MESIBO_CALLSTATUS_OFFLINE               0x45
-#define MESIBO_CALLSTATUS_INVALIDDEST           0x46
-#define MESIBO_CALLSTATUS_INVALIDSTATE          0x47
-#define MESIBO_CALLSTATUS_NOCALLS               0x48
-#define MESIBO_CALLSTATUS_NOVIDEOCALLS          0x49
-#define MESIBO_CALLSTATUS_NOTALLOWED            0x4A
-#define MESIBO_CALLSTATUS_BLOCKED               0x4B
-#define MESIBO_CALLSTATUS_DURATIONEXCEEDED      0x4C
-
-//TringMe specific errir
-#define MESIBO_CALLSTATUS_AUTHFAIL              0x50
-#define MESIBO_CALLSTATUS_NOCREDITS             0x51
-#define MESIBO_CALLSTATUS_NONTRINGMEDEST        0x52
-#define MESIBO_CALLSTATUS_INCOMPATIBLE          0x53
-#define MESIBO_CALLSTATUS_BADCALLID             0x54
-
-// Generic Errors
-#define MESIBO_CALLSTATUS_ERROR                 0x60
-#define MESIBO_CALLSTATUS_HWERROR               0x61
-#define MESIBO_CALLSTATUS_NETWORKERROR          0x62
-#define MESIBO_CALLSTATUS_NETWORKBLOCKED        0x63
-
-#define MESIBO_CALLFLAG_AUDIO                   0x1
-#define MESIBO_CALLFLAG_VIDEO                   0x2
-#define MESIBO_CALLFLAG_STARTCALL               0x4
-#define MESIBO_CALLFLAG_CALLWAITING               0x8
-#define MESIBO_CALLFLAG_WIFI                    0x10
-#define MESIBO_CALLFLAG_SLOWNETWORK             0x20
-#define MESIBO_CALLFLAG_MISSED                  0x1000
-
-//Following CALL_STATUS_ are for internal use and for notifications
-#define MESIBO_CALLSTATUS_DUREXCEED             19
-#define MESIBO_CALLSTATUS_SRCRINGING            20
-#define MESIBO_CALLSTATUS_SRCANSWERED           21
-#define MESIBO_CALLSTATUS_USERINPUT             22
-
 #define MESIBO_SERVERTYPE_STUN                  0
 #define MESIBO_SERVERTYPE_TURN                  1
 
@@ -1488,13 +1419,15 @@ typedef void (^Mesibo_onRunHandler)(void);
 
 -(void) setCallInterface:(int)type ci:(void * _Nullable) ci;
 -(int) call:(NSString * _Nonnull)phone video:(BOOL)video;
--(int) answer:(BOOL)video;
+-(int) answer:(uint32_t)callid video:(BOOL)video waiting:(BOOL)waiting;
 -(int) call_ack:(BOOL)cis;
 -(int) call_info:(uint64_t)info width:(uint16_t)width height:(uint16_t) height;
+-(uint32_t) getCallId;
+-(BOOL) isCallWaiting;
 -(int) mute:(BOOL)audio video:(BOOL)video enable:(BOOL)enable;
 -(int) hold:(BOOL)enable;
 -(int) dtmf:(int)digit;
--(int) hangup:(uint32_t)callid;
+-(int) hangup:(uint32_t)callid waiting:(BOOL)waiting;
 -(int) getMuteStatus;
 -(void) setCallProcessing:(int)rejectStatus currentStatus:(int)currentStatus;
 -(void) setCallStatus:(int)type sdp:(NSString * _Nullable)sdp;

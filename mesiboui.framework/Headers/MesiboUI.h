@@ -120,10 +120,6 @@
 
 -(BOOL) MesiboUI_onClickedRow:(MesiboScreen * _Nonnull)screen row:(MesiboRow * _Nonnull) row  NS_SWIFT_NAME(MesiboUI_onClickedRow(screen:row:));
 
-/* You can implement addTarget or set tag for buttons */
-//-(BOOL) MesiboUI_onClicked:(MesiboScreen * _Nonnull)screen row:(MesiboRow * _Nullable)row view:(id _Nonnull)view;
-
-
 @end
 
 /* depreciated - kept for reference - replace implementation with MesiboUIListener*/
@@ -156,6 +152,8 @@
 @property (nonatomic) BOOL enableMessageButton;
 @property (nonatomic) BOOL hidesBottomBarWhenPushed;
 @property (nonatomic) BOOL alwaysShowSearchBar;
+@property (nonatomic) BOOL showRichMessageButtons;
+
 
 @property (nonatomic) BOOL e2eIndicator;
 

@@ -33,6 +33,44 @@
 #define MESIBOCALL_VIDEOSOURCE_CAMERAREAR           2
 #define MESIBOCALL_VIDEOSOURCE_SCREEN               4
 
+#define MESIBO_CALLSTATUS_NONE                  0x00
+#define MESIBO_CALLSTATUS_INCOMING         0x01
+#define MESIBO_CALLSTATUS_INPROGRESS            0x02
+#define MESIBO_CALLSTATUS_RINGING               0x03
+#define MESIBO_CALLSTATUS_ANSWER                0x05
+#define MESIBO_CALLSTATUS_UPDATE                0x06
+#define MESIBO_CALLSTATUS_DTMF                  0x07
+#define MESIBO_CALLSTATUS_SDP                   0x08
+#define MESIBO_CALLSTATUS_MUTE                  0x09
+#define MESIBO_CALLSTATUS_UNMUTE                0x0A
+#define MESIBO_CALLSTATUS_HOLD                  0x0B
+#define MESIBO_CALLSTATUS_UNHOLD                0x0C
+
+#define MESIBO_CALLSTATUS_CONNECTED             0x30
+#define MESIBO_CALLSTATUS_RECONNECTING          0x32
+
+#define MESIBO_CALLSTATUS_COMPLETE              0x40
+#define MESIBO_CALLSTATUS_CANCEL                0x41
+#define MESIBO_CALLSTATUS_NOANSWER              0x42
+#define MESIBO_CALLSTATUS_BUSY                  0x43
+#define MESIBO_CALLSTATUS_UNREACHABLE           0x44
+#define MESIBO_CALLSTATUS_OFFLINE               0x45
+#define MESIBO_CALLSTATUS_INVALIDDEST           0x46
+#define MESIBO_CALLSTATUS_INVALIDSTATE          0x47
+#define MESIBO_CALLSTATUS_NOCALLS               0x48
+#define MESIBO_CALLSTATUS_NOVIDEOCALLS          0x49
+#define MESIBO_CALLSTATUS_NOTALLOWED            0x4A
+#define MESIBO_CALLSTATUS_BLOCKED               0x4B
+#define MESIBO_CALLSTATUS_DURATIONEXCEEDED      0x4C
+#define MESIBO_CALLSTATUS_SWITCHED              0x4D
+
+// Generic Errors
+#define MESIBO_CALLSTATUS_ERROR                 0x60
+#define MESIBO_CALLSTATUS_HWERROR               0x61
+#define MESIBO_CALLSTATUS_NETWORKERROR          0x62
+#define MESIBO_CALLSTATUS_NETWORKBLOCKED        0x63
+
+
 //forward declaration
 //@protocol MesiboCallInProgressListener;
 
@@ -40,6 +78,7 @@
 @property (nonatomic) NSString * _Nullable title;
 @property (nonatomic) NSString * _Nullable message;
 @property (nonatomic) NSString * _Nullable answer;
+@property (nonatomic) NSString * _Nullable answerCallWaiting;
 @property (nonatomic) NSString * _Nullable hangup;
 @property (nonatomic) NSString * _Nullable silentJoin;
 @property (nonatomic) BOOL vibrate;
@@ -129,9 +168,15 @@
 @property (nonatomic) BOOL enableCallKit; // requires CallKit to be enabled first
 
 @property (nonatomic) BOOL incoming;
+@property (nonatomic) BOOL waiting;
 
--(void) reset:(BOOL)videoEnabled group:(BOOL)group;
+@property (nonatomic) uint32_t callid;
+
+
+
+-(void) reset:(BOOL)videoEnabled group:(BOOL)group waiting:(BOOL)waiting;
 -(id _Nonnull )initWith:(BOOL)video group:(BOOL)group;
+-(id _Nonnull )initWith:(BOOL)video group:(BOOL)group waiting:(BOOL)waiting;
 @end
 
 @interface MesiboVideoView : UIView
@@ -156,7 +201,7 @@
 @class MesiboCallIncomingListener;
 
 @protocol MesiboCallIncomingListener
--(MesiboCallProperties * _Nullable) MesiboCall_OnIncoming:(MesiboProfile *_Nonnull)profile video:(BOOL)video NS_SWIFT_NAME(MesiboCall_OnIncoming(profile:video:));
+-(MesiboCallProperties * _Nullable) MesiboCall_OnIncoming:(MesiboProfile *_Nonnull)profile video:(BOOL)video waiting:(BOOL)waiting NS_SWIFT_NAME(MesiboCall_OnIncoming(profile:video:waiting:));
 -(BOOL) MesiboCall_OnShowUserInterface:(id _Nullable )call properties:(MesiboCallProperties *_Nullable)cp NS_SWIFT_NAME(MesiboCall_OnShowUserInterface(call:properties:));
 -(BOOL) MesiboCall_OnNotify:(int)type profile:(MesiboProfile *_Nonnull)profile video:(BOOL)video NS_SWIFT_NAME(MesiboCall_OnNotify(type:profile:video:));
 -(void) MesiboCall_OnError:(MesiboCallProperties*_Nonnull)cp error:(int) error NS_SWIFT_NAME(MesiboCall_OnError(cp:error:));
@@ -235,7 +280,7 @@ enum MesiboAudioDevice {MESIBO_AUDIODEVICE_SPEAKER, MESIBO_AUDIODEVICE_HEADSET, 
 -(void) MesiboCall_OnMute:(MesiboCallProperties * _Nonnull)cp audio:(BOOL)audio video:(BOOL) video remote:(BOOL)remote;
 -(BOOL) MesiboCall_OnPlayInCallSound:(MesiboCallProperties * _Nonnull)cp type:(int)type play:(BOOL) play;
 -(void) MesiboCall_OnHangup:(MesiboCallProperties * _Nonnull)cp reason:(int)reason;
--(void) MesiboCall_OnStatus:(MesiboCallProperties * _Nonnull)cp status:(int) status video:(BOOL) video;
+-(void) MesiboCall_OnStatus:(MesiboCallProperties * _Nonnull)cp status:(int) status video:(BOOL)video waiting:(BOOL)waiting;
 -(void) MesiboCall_OnAudioDeviceChanged:(MesiboCallProperties * _Nonnull)cp active:(int)active inactive:(int)inactive;
 -(void) MesiboCall_OnVideoSourceChanged:(MesiboCallProperties * _Nonnull)cp source:(int)source index:(int) index;
 -(void) MesiboCall_OnVideo:(MesiboCallProperties * _Nonnull)cp video:(MesiboVideoProperties * _Nonnull)video remote:(BOOL)remote;
@@ -286,6 +331,7 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 -(BOOL) enableCallKit:(BOOL)detectRegulatoryRestrictions icon:(UIImage *_Nonnull)icon;
 -(BOOL) enableCallKit:(BOOL)detectRegulatoryRestrictions icon:(UIImage *_Nonnull)icon recentLogs:(BOOL) recentLogs;
 -(void) enablePushKit:(BOOL) enable; // mandatory call
+-(void) enableCallWaiting:(BOOL)enable;
 
 +(UIImage * _Nullable) getImage:(NSBundle * _Nonnull)bundle name:(NSString * _Nonnull)name;
 +(UIImage * _Nullable) getColoredImage:(NSBundle * _Nonnull)bundle name:(NSString * _Nonnull)name color:(UIColor * _Nullable)color;
