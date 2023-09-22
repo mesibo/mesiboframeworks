@@ -1319,7 +1319,6 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(BOOL) deleteMessage:(uint64_t)msgid remote:(BOOL)remote;
 -(BOOL) deleteMessage:(uint64_t)msgid;
 
--(BOOL) deleteMessages:(NSString * _Nullable)sender groupid:(uint32_t)groupid ts:(uint64_t)ts;
 -(BOOL) deleteZombieMessages:(BOOL) groupOnly;
 //-(void)setEnableReadReceipt:(BOOL)enable sendLastReceipt:(BOOL)sendLastReceipt;
 -(int) sendReadReceipt:(MesiboMessageProperties * _Nonnull)p msgid:(uint64_t)msgid;
