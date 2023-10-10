@@ -1,6 +1,14 @@
-// MesiboCall.h
-// Copyright © 2021 Mesibo. All rights reserved.
-// https://mesibo.com
+/************************************************************************
+* By accessing and utilizing this work, you hereby acknowledge that you *
+* have thoroughly reviewed, comprehended, and commit to adhering to the *
+* terms and conditions stipulated on the mesibo website, thereby        *
+* entering into a legally binding agreement.                            *
+*                                                                       *
+* mesibo website: https://mesibo.com                                    *
+*                                                                       *
+* Copyright ©2023 Mesibo. All rights reserved.                          *
+*************************************************************************/
+
 #pragma once
 
 #import <Foundation/Foundation.h>
@@ -75,6 +83,7 @@
 //@protocol MesiboCallInProgressListener;
 
 @interface MesiboCallNotification : NSObject
+@property (nonatomic) BOOL enabled;
 @property (nonatomic) NSString * _Nullable title;
 @property (nonatomic) NSString * _Nullable message;
 @property (nonatomic) NSString * _Nullable answer;
@@ -91,6 +100,8 @@
 
 @interface MesiboVideoProperties : NSObject
 @property (nonatomic) BOOL enabled;
+@property (nonatomic) BOOL sendVideo;
+@property (nonatomic) BOOL receiveVideo;
 @property (nonatomic) int width;
 @property (nonatomic) int height;
 @property (nonatomic) int fps;
@@ -106,6 +117,8 @@
 
 @interface MesiboAudioProperties : NSObject
 @property (nonatomic) BOOL enabled;
+@property (nonatomic) BOOL sendAudio;
+@property (nonatomic) BOOL receiveAudio;
 @property (nonatomic) int bitrate; //kbps
 @property (nonatomic) int quality;
 @property (nonatomic) int codec;
@@ -321,6 +334,7 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 
 -(BOOL) callUi:(MesiboCallProperties * _Nonnull)cc;
 -(BOOL) callUi:(id _Nonnull)parent profile:(MesiboProfile * _Nonnull)profile video:(BOOL)video;
+-(BOOL) callUi:(id _Nonnull)parent profile:(MesiboProfile * _Nonnull)profile video:(BOOL)video audio:(BOOL)audio videoMute:(BOOL)videoMute audioMute:(BOOL)audioMute;
 -(BOOL) callUiForExistingCall:(id _Nonnull)parent;
 
 -(MesiboCallProperties * _Nonnull) createCallProperties:(BOOL)video;
@@ -348,7 +362,7 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 -(MesiboGroupCall * _Nullable) groupCall:(id _Nonnull)controller groupid:(uint32_t) groupid;
 
 -(BOOL) groupCallJoinRoomUi:(id _Nonnull)parent;
--(BOOL) groupCallUi:(id _Nonnull)parent profile:(MesiboProfile * _Nonnull)profile video:(BOOL)video publish:(BOOL)publish;
+-(BOOL) groupCallUi:(id _Nonnull)parent profile:(MesiboProfile * _Nonnull)profile video:(BOOL)video audio:(BOOL)audio videoMute:(BOOL)videoMute audioMute:(BOOL)audioMute publish:(BOOL)publish;
 
 -(void) notify:(MesiboCallProperties * _Nonnull)cp;
 @end
@@ -402,7 +416,7 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 
 @interface MesiboParticipant : NSObject
 -(void) setListener:(id<MesiboGroupCallInProgressListener> _Nonnull) listener;
--(BOOL) call:(BOOL)audio video:(BOOL)video listener:(id<MesiboGroupCallInProgressListener> _Nonnull) listener;
+-(BOOL) call:(BOOL)audio video:(BOOL)video audioMute:(BOOL)audioMute videoMute:(BOOL)videoMute listener:(id<MesiboGroupCallInProgressListener> _Nonnull) listener ;
 -(void) hangup;
 
 -(void) switchCamera;

@@ -1,6 +1,14 @@
-// Mesibo.h
-// Copyright © 2022 Mesibo. All rights reserved.
-// https://mesibo.com
+/************************************************************************
+* By accessing and utilizing this work, you hereby acknowledge that you *
+* have thoroughly reviewed, comprehended, and commit to adhering to the *
+* terms and conditions stipulated on the mesibo website, thereby        *
+* entering into a legally binding agreement.                            *
+*                                                                       *
+* mesibo website: https://mesibo.com                                    *
+*                                                                       *
+* Copyright ©2023 Mesibo. All rights reserved.                          *
+*************************************************************************/
+
 
 #pragma once
 
@@ -360,6 +368,67 @@
 @property (nonatomic, nullable) MesiboMemberPermissions *permissions;
 @end
 
+#define MESIBO_PHONETYPE_INVALID  -1
+#define MESIBO_PHONETYPE_MAYBE  0
+#define MESIBO_PHONETYPE_VALID  1
+#define MESIBO_PHONETYPE_MOBILE  2
+#define MESIBO_PHONETYPE_FIXED  3
+#define MESIBO_PHONETYPE_TOLLFREE  4
+#define MESIBO_PHONETYPE_PREMIUM  5
+#define MESIBO_PHONETYPE_VOIP  6
+#define MESIBO_PHONETYPE_PRIVATE  7
+#define MESIBO_PHONETYPE_COUNTRY  10
+
+@interface MesiboPhoneContact : NSObject
+@property (nonatomic) NSString * _Nullable name;
+@property (nonatomic) NSString * _Nullable phoneNumber;
+@property (nonatomic) NSString * _Nullable nationalNumber;
+@property (nonatomic) NSString * _Nullable country;
+@property (nonatomic) int countryCode;
+@property (nonatomic) int type;
+@property (nonatomic) BOOL valid;
+@end
+
+@protocol MesiboPhoneContactsListener <NSObject>
+-(void) Mesibo_onPhoneContactsAdded:(NSArray<NSString *> * _Nonnull) phones  NS_SWIFT_NAME(Mesibo_onPhoneContactsAdded(phones:));
+-(void) Mesibo_onPhoneContactsDeleted:(NSArray<NSString *> * _Nonnull) phones  NS_SWIFT_NAME(Mesibo_onPhoneContactsDeleted(phones:));
+@end
+
+@interface MesiboPhoneContactsManager : NSObject
+-(void) setListener:(id<MesiboPhoneContactsListener>  _Nonnull) listener;
+-(void) setSyncConfig:(BOOL) addContact subscribe:(BOOL)subscribe visibility:(int) visibility;
+-(void) syncMobileNumbers:(BOOL) enable;
+-(void) syncLandlineNumbers:(BOOL) enable;
+-(void) syncTollfreeNumbers:(BOOL) enable;
+-(void) syncPremiumNumbers:(BOOL) enable;
+-(void) syncVoipNumbers:(BOOL) enable;
+-(void) syncPrivateNumbers:(BOOL) enable;
+-(void) syncUnknownNumbers:(BOOL) enable;
+-(void) ignoreInvalidCharacters:(BOOL) enable;
+-(void) ignoreInvalidLength:(BOOL) enable;
+-(void) truncateLongNumbers:(BOOL) enable;
+-(void) forcePrefixCountryCode:(BOOL) enable;
+-(void) detectMissingCountryCode:(BOOL) enable;
+-(void) enableNameLookup:(BOOL) enable;
+-(void) syncValidNumbersOnly;
+-(void) syncPossiblyValidNumbers:(BOOL) enable;
+-(void) syncInvalidNumbers:(BOOL) enable;
+-(void) overrideProfileName:(BOOL) enable;
+-(BOOL) canOverrideProfileName;
+-(BOOL) start:(BOOL) listenChanges;
+-(BOOL) start;
+-(void) reset;
+-(int) setLocalPhoneNumber:(NSString * _Nonnull) phone;
+-(BOOL) setCountryCode:(int) code;
+-(MesiboPhoneContact * _Nonnull) getCountryCodeFromPhone:(NSString * _Nonnull) phone;
+-(MesiboPhoneContact * _Nonnull) getCountryCode;
+// Removed because of iOS 16 CTCarrier deprecation
+//-(MesiboPhoneContact * _Nonnull) getNetworkCountryCode;
+//-(MesiboPhoneContact * _Nonnull) getSimCountryCode;
+-(MesiboPhoneContact * _Nonnull) validateAndGetPhoneNumberInfo:(NSString * _Nonnull) phone;
+-(MesiboPhoneContact * _Nonnull) lookupPhoneNumber:(NSString * _Nonnull) phone;
+
+@end
 
 @class MesiboGroupProfile; // foward declaration
 @protocol MesiboProfileDelegate;
@@ -580,11 +649,17 @@
 @property (nonatomic) int sec;
 @property (nonatomic) int daysElapsed;
 
++(BOOL) isMonthFirstDateFormat;
++(BOOL) is24HourTimeFormat;
+
 -(BOOL) isValid;
 -(BOOL) setTimestamp:(uint64_t) ts;
+-(BOOL) isToday;
+-(int) getDays;
 -(NSString * _Nullable) getMonth;
 -(NSString * _Nonnull) getDate:(BOOL)monthFirst;
 -(NSString * _Nonnull) getDate:(BOOL)monthFirst today:(NSString * _Nullable)today yesterday:(NSString * _Nullable) yesterday;
+-(NSString * _Nonnull) getDate:(BOOL)monthFirst today:(NSString * _Nullable)today yesterday:(NSString * _Nullable) yesterday numerical:(BOOL)numerical;
 -(NSString * _Nonnull) getTime:(BOOL)seconds;
 @end
 
@@ -710,9 +785,12 @@
 -(MesiboDateTime * _Nullable) getReadTimestamp:(NSString * _Nullable) peer;
 -(MesiboDateTime * _Nullable) getDeliveryTimestamp:(NSString * _Nullable) peer;
 
--(NSString * _Nonnull) getDate:(BOOL) monthFirst today:(NSString * _Nullable)today yesterday:(NSString * _Nullable)yesterday __deprecated_msg("Use getTimestamp instead.");
--(NSString * _Nonnull) getDate:(BOOL) monthFirst __deprecated_msg("Use getTimestamp instead.");
--(NSString * _Nonnull) getTime:(BOOL) seconds __deprecated_msg("Use getTimestamp instead.");
+#if 0
+/* These functions are removed now - use getTimestamp() and MesiboDateTime */
+-(NSString * _Nonnull) getDate:(BOOL) monthFirst today:(NSString * _Nullable)today yesterday:(NSString * _Nullable)yesterday __deprecated_msg("Use getTimestamp instead -- this function will be removed in the next release.");
+-(NSString * _Nonnull) getDate:(BOOL) monthFirst __deprecated_msg("Use getTimestamp instead -- this function will be removed in the next release.");
+-(NSString * _Nonnull) getTime:(BOOL) seconds __deprecated_msg("Use getTimestamp instead -- this function will be removed in the next release.");
+#endif
 
 @end
 
@@ -920,10 +998,7 @@ typedef MesiboProfile MesiboAddress;
 -(nullable NSString *) getFileName;
 -(long) getFileSize;
 -(nullable NSString *) getFilePath;
--(nullable NSString *) getImagePath:(BOOL) sent;
--(nullable NSString *) getVideoPath:(BOOL) sent;
--(nullable NSString *) getAudioPath:(BOOL) sent;
--(nullable NSString *) getDocumentPath:(BOOL) sent;
+
 -(BOOL) isImage;
 -(BOOL) isVideo;
 -(BOOL) isAudio;
@@ -1177,7 +1252,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 
 -(void) Mesibo_onServer:(int)type url:(NSString * _Nullable)url username:(NSString * _Nullable)username credential:(NSString * _Nullable)credential;
 
--(void) Mesibo_onConfParitcipant:(uint32_t)uid sid:(uint32_t)sid address:(NSString * _Nullable)address name:(NSString * _Nullable)name role:(uint32_t) role flags:(uint32_t) flags;
+-(void) Mesibo_onConfParitcipant:(uint32_t)uid sid:(uint32_t)sid address:(NSString * _Nullable)address name:(NSString * _Nullable)name role:(uint32_t) role flags:(uint32_t) flags callflags:(uint32_t) callflags;
 
 -(void) Mesibo_onConfCall:(uint32_t)uid sid:(uint32_t)sid op:(int)op source:(uint32_t)source resolution:(uint32_t)resolution fps:(int)fps bw:(uint32_t)bw flags:(uint32_t)flags sdp:(NSString * _Nullable)sdp mid:(NSString * _Nullable)mid mline:(int) mline;
 
@@ -1257,6 +1332,8 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(nonnull NSString *) getAppName;
 -(nonnull MesiboEndToEndEncryption *) e2ee;
 
+-(nonnull MesiboPhoneContactsManager *) getPhoneContactsManager;
+
 //********************** Push Handler **************************************
 -(void) didReceiveRemoteNotification:(nullable NSDictionary *)userInfo fetchCompletionHandler:(nullable void (^)( UIBackgroundFetchResult))completionHandler;
 //-(void) didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type withCompletionHandler:(void (^)(void))completion;
@@ -1282,6 +1359,10 @@ typedef void (^Mesibo_onRunHandler)(void);
 //********************** Status and Information *********************************
 -(NSString * _Nonnull) getBasePath;
 -(NSString * _Nonnull) getFilePath:(int)type sent:(BOOL) sent;
+-(nullable NSString *) getImagePath:(BOOL) sent;
+-(nullable NSString *) getVideoPath:(BOOL) sent;
+-(nullable NSString *) getAudioPath:(BOOL) sent;
+-(nullable NSString *) getDocumentPath:(BOOL) sent;
 -(void) setForegroundContext:(id _Nonnull)context screenId:(int)screenId foreground:(BOOL)foreground;
 -(BOOL) setAppInForeground:(id _Nonnull)context screenId:(int)screenId foreground:(BOOL)foreground;
 -(nullable id) getForegroundContext;
@@ -1381,9 +1462,6 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(NSString * _Nonnull) getFileName:(NSString * _Nonnull) path;
 -(BOOL) renameFile:(NSString * _Nonnull)srcFile destFile:(NSString * _Nonnull)destFile forced:(BOOL) forced ;
 
-// phone functions, used in demo app
--(int) getCountryCodeFromPhone:(NSString * _Nonnull) phone;
--(NSString * _Nullable) getFQN:(NSString * _Nonnull)phone code:(int)code mcc:(int)mcc;
 
 -(BOOL) isUiThread;
 -(void) runInThread:(BOOL)uiThread handler:(Mesibo_onRunHandler _Nonnull) handler;

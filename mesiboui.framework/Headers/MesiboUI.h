@@ -1,4 +1,13 @@
-//  Copyright © 2023 Mesibo. All rights reserved.
+/************************************************************************
+* By accessing and utilizing this work, you hereby acknowledge that you *
+* have thoroughly reviewed, comprehended, and commit to adhering to the *
+* terms and conditions stipulated on the mesibo website, thereby        *
+* entering into a legally binding agreement.                            *
+*                                                                       *
+* mesibo website: https://mesibo.com                                    *
+*                                                                       *
+* Copyright ©2023 Mesibo. All rights reserved.                          *
+*************************************************************************/
 
 #ifndef __MESIBOUI_H
 #define __MESIBOUI_H
@@ -257,6 +266,7 @@
 @property (copy, nonatomic, nonnull) NSString *allUsersTitle;
 @property (copy, nonatomic, nonnull) NSString *groupMembersTitle;
 
+@property (nonatomic) BOOL showMonthFirst;
 @property (copy, nonatomic, nonnull) NSString *today;
 @property (copy, nonatomic, nonnull) NSString *yesterday;
 @property (copy, nonatomic, nonnull) NSString *at;
