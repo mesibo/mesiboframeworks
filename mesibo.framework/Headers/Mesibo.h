@@ -425,8 +425,7 @@
 // Removed because of iOS 16 CTCarrier deprecation
 //-(MesiboPhoneContact * _Nonnull) getNetworkCountryCode;
 //-(MesiboPhoneContact * _Nonnull) getSimCountryCode;
--(MesiboPhoneContact * _Nonnull) validateAndGetPhoneNumberInfo:(NSString * _Nonnull) phone;
--(MesiboPhoneContact * _Nonnull) lookupPhoneNumber:(NSString * _Nonnull) phone;
+-(MesiboPhoneContact * _Nonnull) validateAndLookupPhoneNumber:(NSString * _Nonnull) phone;
 
 @end
 
