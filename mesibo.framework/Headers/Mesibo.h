@@ -410,7 +410,7 @@
 -(void) forcePrefixCountryCode:(BOOL) enable;
 -(void) detectMissingCountryCode:(BOOL) enable;
 -(void) enableNameLookup:(BOOL) enable;
--(void) syncValidNumbersOnly;
+-(void) syncValidNumbers:(BOOL) enable;
 -(void) syncPossiblyValidNumbers:(BOOL) enable;
 -(void) syncInvalidNumbers:(BOOL) enable;
 -(void) overrideProfileName:(BOOL) enable;
