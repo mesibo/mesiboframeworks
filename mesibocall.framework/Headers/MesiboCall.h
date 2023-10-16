@@ -395,6 +395,7 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 -(void) MesiboGroupcall_OnVideoSourceChanged:(MesiboParticipant * _Nonnull)p source:(int)source index:(int) index;
 -(void) MesiboGroupcall_OnVideo:(MesiboParticipant * _Nonnull)p aspectRatio:(float)aspectRatio landscape:(BOOL)landscape;
 -(void) MesiboGroupcall_OnAudio:(MesiboParticipant * _Nonnull)p;
+-(BOOL) MesiboGroupcall_OnVisibilityPreference:(MesiboParticipant * _Nonnull)p visible:(BOOL)visible fullscreen:(BOOL)fullscreen priority:(int)priority;
 @end
 
 @interface MesiboParticipantAdmin : NSObject
@@ -462,6 +463,16 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 -(MesiboProfile * _Nonnull) getProfile;
 -(BOOL) isMe;
 -(BOOL) isPublisher;
+
+-(BOOL) setVisibility:(BOOL) visible fullscreen:(BOOL)fullscreen priority:(int) priority;
+-(BOOL) setVisible:(BOOL) visible;
+-(BOOL) setFullscreen:(BOOL) fullscreen;
+-(BOOL) setPriority:(int) priority;
+-(BOOL) isVisible;
+-(BOOL) isFullscreen;
+-(int) getPriority;
+-(MesiboGroupCall * _Nonnull) getGroupCall;
+
 @end
 
 @interface MesiboParticipantSortParams : NSObject
