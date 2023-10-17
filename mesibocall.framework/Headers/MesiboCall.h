@@ -352,6 +352,10 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 
 +(BOOL) checkPermissions:(BOOL)video handler:(MesiboPermissionBlock _Nonnull) handler;
 
+-(void) setDefaultPicture:(UIImage * _Nonnull) image;
+-(UIImage * _Nullable) getDefaultPicture;
+-(UIImage * _Nullable) getDefaultThumbnail;
+
 -(void) setDefaultUiParent:(id _Nonnull)parent;
 -(void) setDefaultUiProperties:(MesiboCallUiProperties * _Nullable)properties;
 -(MesiboCallUiProperties * _Nullable)getDefaultUiProperties;
