@@ -317,6 +317,7 @@
 @class MesiboMessage; // forward declaration
 @class MesiboPresence;
 @class MesiboMessageProperties;
+@class MesiboProfile;
 
 @interface MesiboEndToEndEncryption : NSObject
 -(void) enable:(BOOL) enable;
@@ -392,13 +393,17 @@
 #define MESIBO_PHONETYPE_COUNTRY  10
 
 @interface MesiboPhoneContact : NSObject
+@property (nonatomic) MesiboProfile * _Nullable profile;
 @property (nonatomic) NSString * _Nullable name;
 @property (nonatomic) NSString * _Nullable phoneNumber;
 @property (nonatomic) NSString * _Nullable nationalNumber;
+@property (nonatomic) NSString * _Nullable formattedPhoneNumber;
 @property (nonatomic) NSString * _Nullable country;
-@property (nonatomic) int countryCode;
+@property (nonatomic) NSString * _Nullable countryIsoCode;
+@property (nonatomic) int countryPhoneCode;
 @property (nonatomic) int type;
 @property (nonatomic) BOOL valid;
+@property (nonatomic) BOOL possiblyValid;
 @end
 
 @protocol MesiboPhoneContactsListener <NSObject>
@@ -431,18 +436,19 @@
 -(BOOL) start:(BOOL) listenChanges;
 -(BOOL) start;
 -(void) reset;
--(int) setLocalPhoneNumber:(NSString * _Nonnull) phone;
--(BOOL) setCountryCode:(int) code;
--(MesiboPhoneContact * _Nonnull) getCountryCodeFromPhone:(NSString * _Nonnull) phone;
+-(MesiboPhoneContact * _Nonnull) setCountryCodeFromPhoneNumber:(NSString * _Nonnull) phone;
+-(MesiboPhoneContact * _Nonnull) setCountryCodeFromPhoneNumber:(NSString * _Nonnull) phone code:(NSString * _Nullable) code;
+-(MesiboPhoneContact * _Nonnull) setCountryCode:(NSString * _Nullable) code;
+-(MesiboPhoneContact * _Nonnull) getCountryCode:(NSString * _Nullable) code;
 -(MesiboPhoneContact * _Nonnull) getCountryCode;
 // Removed because of iOS 16 CTCarrier deprecation
 //-(MesiboPhoneContact * _Nonnull) getNetworkCountryCode;
 //-(MesiboPhoneContact * _Nonnull) getSimCountryCode;
--(MesiboPhoneContact * _Nonnull) validateAndLookupPhoneNumber:(NSString * _Nonnull) phone;
-
+-(MesiboPhoneContact * _Nonnull) getPhoneNumberInfo:(NSString * _Nonnull) phone;
+-(MesiboPhoneContact * _Nonnull) getPhoneNumberInfo:(NSString * _Nonnull) phone format:(BOOL)format;
+  -(MesiboPhoneContact * _Nonnull) getPhoneNumberInfo:(NSString * _Nonnull) phone code:(NSString * _Nullable)code format:(BOOL)format;
 @end
 
-@class MesiboProfile;
 @class MesiboGroupProfile; // foward declaration
 @protocol MesiboProfileDelegate;
 @class MesiboMessageProperties;
