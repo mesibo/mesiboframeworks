@@ -693,6 +693,8 @@
 -(NSString * _Nonnull) getNumericalDate;
 -(NSString * _Nonnull) getDate:(BOOL)monthFirst today:(NSString * _Nullable)today yesterday:(NSString * _Nullable) yesterday numerical:(BOOL)numerical;
 -(NSString * _Nonnull) getTime:(BOOL)seconds;
+-(NSString * _Nonnull) getDateInNaturalLanguage:(int)accuracy;
+-(NSString * _Nonnull) getDateInNaturalLanguage;
 @end
 
 @interface MesiboMessageProperties : NSObject
