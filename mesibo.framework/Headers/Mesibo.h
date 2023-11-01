@@ -435,6 +435,7 @@
 -(BOOL) canOverrideProfileName;
 -(BOOL) start:(BOOL) listenChanges;
 -(BOOL) start;
+-(BOOL) isStarted;
 -(void) reset;
 -(MesiboPhoneContact * _Nonnull) setCountryCodeFromPhoneNumber:(NSString * _Nonnull) phone;
 -(MesiboPhoneContact * _Nonnull) setCountryCodeFromPhoneNumber:(NSString * _Nonnull) phone code:(NSString * _Nullable) code;

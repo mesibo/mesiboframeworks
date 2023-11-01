@@ -206,6 +206,7 @@
 @property (copy, nonatomic, nonnull) NSString *joinedIndicationTitle;
 
 @property (copy, nonatomic, nonnull) NSString *groupDeletedTitle;
+@property (copy, nonatomic, nonnull) NSString *groupMemberTitle;
 @property (copy, nonatomic, nonnull) NSString *groupNotMemberTitle;
 
 @property (copy, nonatomic, nonnull) NSString *e2eeActive;
@@ -316,6 +317,11 @@
 @property (assign, nonatomic) int verticalImageWidth;
 @property (assign, nonatomic) int horizontalImageWidth;
 
+@property (nonatomic) BOOL showAddressInProfileView;
+@property (nonatomic) BOOL showAddressAsPhoneInProfileView;
+@property (nonatomic) BOOL showLastSeenInProfileView;
+@property (nonatomic) BOOL showGroupMembersInProfileView;
+
 @property (assign, nonatomic) UITableViewCellAccessoryType userListCellAccessoryType;
 
 @end
@@ -360,7 +366,7 @@
 
 +(void) launchEditGroupDetails:(id _Nonnull)parent groupid:(uint32_t) groupid;
 +(void) showEndToEncEncryptionInfo:(UIViewController * _Nonnull) parent profile:(MesiboProfile* _Nonnull)profile;
-+(void) showBasicProfileInfo:(id _Nonnull)parent profile:(MesiboProfile * _Nonnull)profile showAddress:(BOOL)showAddress showAddressAsPhone:(BOOL)showAddressAsPhone;
++(void) showBasicProfileInfo:(id _Nonnull)parent profile:(MesiboProfile * _Nonnull)profile;
 
 +(NSBundle * _Nonnull) getMesiboUIBumble;
 +(UIImage * _Nullable) getDefaultImage:(BOOL) group;
