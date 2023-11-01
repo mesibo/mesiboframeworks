@@ -38,9 +38,9 @@
 
 #define MESIBO_DEFAULTICON_MESSAGE          @"ic_message_white"
 #define MESIBO_DEFAULTICON_AUDIOCALL        @"ic_call_white"
-#define MESIBO_DEFAULTICON_VIDEOALL         @"ic_videocam_white"
+#define MESIBO_DEFAULTICON_VIDEOCALL         @"ic_videocam_white"
 #define MESIBO_DEFAULTICON_GROUPAUDIOCALL   @"ic_call_add_white"
-#define MESIBO_DEFAULTICON_GROUPVIDEOALL    @"ic_videocam_add_white"
+#define MESIBO_DEFAULTICON_GROUPVIDEOCALL    @"ic_videocam_add_white"
 
 
 @interface MesiboScreenOptions : NSObject
