@@ -36,6 +36,13 @@
 #define USERLIST_MODE_EDITGROUP     4
 #define USERLIST_MODE_MESSAGES      5
 
+#define MESIBO_DEFAULTICON_MESSAGE          @"ic_message_white"
+#define MESIBO_DEFAULTICON_AUDIOCALL        @"ic_call_white"
+#define MESIBO_DEFAULTICON_VIDEOALL         @"ic_videocam_white"
+#define MESIBO_DEFAULTICON_GROUPAUDIOCALL   @"ic_call_add_white"
+#define MESIBO_DEFAULTICON_GROUPVIDEOALL    @"ic_videocam_add_white"
+
+
 @interface MesiboScreenOptions : NSObject
 @property (assign, nonatomic) long sid;
 @property (nonatomic, nullable) id userObject;
@@ -353,6 +360,7 @@
 
 +(void) launchEditGroupDetails:(id _Nonnull)parent groupid:(uint32_t) groupid;
 +(void) showEndToEncEncryptionInfo:(UIViewController * _Nonnull) parent profile:(MesiboProfile* _Nonnull)profile;
++(void) showBasicProfileInfo:(id _Nonnull)parent profile:(MesiboProfile * _Nonnull)profile showAddress:(BOOL)showAddress showAddressAsPhone:(BOOL)showAddressAsPhone;
 
 +(NSBundle * _Nonnull) getMesiboUIBumble;
 +(UIImage * _Nullable) getDefaultImage:(BOOL) group;
