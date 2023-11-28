@@ -623,6 +623,8 @@
 @end
 
 @interface MesiboGroupProfile : MesiboProfile
+-(BOOL) isOwner;
+-(BOOL) canAdmin;
 -(BOOL) canModify;
 -(BOOL) canAddMembers;
 -(BOOL) canRemoveMembers;
