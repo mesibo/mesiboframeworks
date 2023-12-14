@@ -71,6 +71,7 @@
 #define MESIBO_MSGSTATUS_DATETIME        0x24
 #define MESIBO_MSGSTATUS_HEADER          0x25
 #define MESIBO_MSGSTATUS_INVISIBLE       0x26
+#define MESIBO_MSGSTATUS_EMPTY           0x27
 
 // ONLY FOR UI USAGE
 #define MESIBO_MSGSTATUS_TIMESTAMP      0x30
@@ -598,7 +599,12 @@
 
 -(MesiboGroupProfile * _Nullable) getGroupProfile;
 
--(BOOL)deleteMessages:(uint64_t)ts;
+-(BOOL) deleteMessages:(uint64_t)ts;
+-(BOOL) deleteMessages;
+-(BOOL) deleteMessagesOlderThan:(uint32_t) seconds;
+-(BOOL) clearMessages:(uint64_t)ts;
+-(BOOL) clearMessages;
+
 -(MesiboReadSession * _Nonnull) createReadSession:(id _Nullable) delegate;
 -(MesiboMessage * _Nonnull) newMessage;
 -(MesiboPresence * _Nonnull) newPresence;
@@ -1428,6 +1434,8 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(BOOL) deleteMessages:(uint64_t * _Nonnull)msgids count:(int)count;
 -(BOOL) deleteMessage:(uint64_t)msgid remote:(BOOL)remote;
 -(BOOL) deleteMessage:(uint64_t)msgid;
+-(BOOL) deleteMessages:(uint64_t) ts;
+-(BOOL) deleteMessagesOlderThan:(uint32_t) seconds;
 
 -(BOOL) deleteZombieMessages:(BOOL) groupOnly;
 //-(void)setEnableReadReceipt:(BOOL)enable sendLastReceipt:(BOOL)sendLastReceipt;

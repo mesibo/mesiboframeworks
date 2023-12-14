@@ -180,6 +180,7 @@
 @property (nonatomic) BOOL enableVoiceCall;
 @property (nonatomic) BOOL enableVideoCall;
 @property (nonatomic) BOOL enableForward;
+@property (nonatomic) BOOL enableEdit;
 @property (nonatomic) BOOL enableReply;
 @property (nonatomic) BOOL enableSearch;
 @property (nonatomic) BOOL enableBackButton;
@@ -199,6 +200,8 @@
 @property (copy, nonatomic, nonnull) NSString *selectGroupContactsTitle;
 @property (copy, nonatomic, nonnull) NSString *forwardTitle;
 @property (copy, nonatomic, nonnull) NSString *forwardedTitle;
+@property (copy, nonatomic, nonnull) NSString *editTitle;
+@property (copy, nonatomic, nonnull) NSString *editedTitle;
 
 @property (copy, nonatomic, nonnull) NSString *userOnlineIndicationTitle;
 @property (copy, nonatomic, nullable) NSString *onlineIndicationTitle;
@@ -273,6 +276,7 @@
 @property (assign, nonatomic) uint32_t messagePictureTextColor;
 @property (assign, nonatomic) uint32_t messageReplyTextColor;
 
+@property (assign, nonatomic) uint32_t clearButtonColor;
 @property (assign, nonatomic) uint32_t deleteButtonColor;
 @property (assign, nonatomic) uint32_t unreadButtonColor;
 
@@ -318,6 +322,13 @@
 @property (copy, nonatomic, nonnull) NSString *deleteTitle;
 @property (copy, nonatomic, nonnull) NSString *deleteAlertTitle;
 @property (copy, nonatomic, nonnull) NSString *unreadTitle;
+@property (copy, nonatomic, nonnull) NSString *clearMessagesTitle;
+@property (copy, nonatomic, nonnull) NSString *clearTitle;
+@property (copy, nonatomic, nonnull) NSString *clearAlertTitle;
+
+@property (assign, nonatomic) int clearMessageMode;
+@property (assign, nonatomic) BOOL clearedMessageContactTimestamp;
+
 
 @property (assign, nonatomic) int verticalImageWidth;
 @property (assign, nonatomic) int horizontalImageWidth;
