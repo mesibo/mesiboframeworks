@@ -686,6 +686,7 @@
 @property (nonatomic) int hour;
 @property (nonatomic) int min;
 @property (nonatomic) int sec;
+@property (nonatomic) int wday;
 
 +(BOOL) isMonthFirstDateFormat;
 +(BOOL) is24HourTimeFormat;
