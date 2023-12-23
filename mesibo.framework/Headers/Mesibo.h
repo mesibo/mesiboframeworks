@@ -1105,8 +1105,10 @@ typedef MesiboProfile MesiboAddress;
 
 
 @interface MesiboReadSession : NSObject
++(MesiboReadSession * _Nullable)getSession:(uint64_t)sessionid;
 - (id _Nonnull)initWith:(MesiboProfile * _Nonnull)profile listener:(id _Nullable) listener;
 - (id _Nonnull)initWith:(id _Nullable) listener;
+- (uint64_t) getSession;
 
 +(void)endAllSessions;
 
