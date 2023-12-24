@@ -713,6 +713,7 @@
 @property (nonatomic, nullable) NSString * peer;
 @property (nonatomic) uint64_t mid;
 @property (nonatomic) uint64_t refid;
+@property (nonatomic) uint64_t rsid;
 @property (nonatomic) uint64_t ts;
 @property (nonatomic) int expiry;
 @property (nonatomic) uint32_t groupid;
@@ -830,6 +831,8 @@
 -(MesiboDateTime * _Nonnull) getTimestamp;
 -(MesiboDateTime * _Nullable) getReadTimestamp:(NSString * _Nullable) peer;
 -(MesiboDateTime * _Nullable) getDeliveryTimestamp:(NSString * _Nullable) peer;
+
+-(MesiboReadSession * _Nullable) getReadSession;
 
 @end
 
@@ -1105,7 +1108,9 @@ typedef MesiboProfile MesiboAddress;
 
 
 @interface MesiboReadSession : NSObject
-+(MesiboReadSession * _Nullable)getSession:(uint64_t)sessionid;
++(MesiboReadSession * _Nullable) getSession:(uint64_t)sessionid;
++(MesiboReadSession * _Nonnull) createReadSummarySession:(id _Nonnull) listener;
+
 - (id _Nonnull)initWith:(MesiboProfile * _Nonnull)profile listener:(id _Nullable) listener;
 - (id _Nonnull)initWith:(id _Nullable) listener;
 - (uint64_t) getSession;
@@ -1144,6 +1149,8 @@ typedef MesiboProfile MesiboAddress;
 -(void) enableIncomingCalls:(BOOL) enable ;
 -(void) enableOutgoingCalls:(BOOL) enable ;
 -(void) enableCalls:(BOOL) enable ;
+
+-(void) enableFlagInternalUseOnly:(int)flag enable:(BOOL)enable __deprecated_msg("This function is for internal use only. Use other enable* functions.");
 
 @end
 
@@ -1286,7 +1293,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 
 -(void) Mesibo_onConnectionStatus:(NSInteger) status NS_SWIFT_NAME(Mesibo_onConnectionStatus(status:));
 
--(void) Mesibo_onSync:(NSInteger)count NS_SWIFT_NAME(Mesibo_onSync(count:));
+-(void) Mesibo_onSync:(MesiboReadSession * _Nonnull)readSession count:(NSInteger)count NS_SWIFT_NAME(Mesibo_onSync(readSession:count:));
 
 -(BOOL) Mesibo_onCall:(uint32_t)peerid callid:(uint32_t)callid profile:(MesiboProfile * _Nonnull)profile flags:(uint64_t)flags;
 
@@ -1524,11 +1531,13 @@ typedef void (^Mesibo_onRunHandler)(void);
 //-(NSString *)fetch:(NSString *)url post:(NSDictionary *)post filePath:(NSString *)filePath fileField:(NSString*)fileField;
 #endif
 
+//********************** Location Functions *********************************************
+-(BOOL) startLocationTracking:(float)distance interval:(int)interval always:(BOOL)always;
+-(void) stopLocationTracking;
+
 //********************** UI Functions *********************************************
--(BOOL) setMessageWidthInPercent:(int) percent;
--(int) getMessageWidthInPoints;
-
-
+//-(BOOL) setMessageWidthInPercent:(int) percent;
+//-(int) getMessageWidthInPoints;
 
 
 + (void) Log:(const char* _Nullable)sourceFile lineNumber:(int)lineNumber format:(NSString* _Nonnull)format, ...;

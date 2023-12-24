@@ -280,6 +280,8 @@
 @property (assign, nonatomic) uint32_t deleteButtonColor;
 @property (assign, nonatomic) uint32_t unreadButtonColor;
 
+@property (assign, nonatomic) uint32_t messageViewWidth;
+
 @property (assign, nonatomic) int mediaButtonPosition;
 @property (assign, nonatomic) int locationButtonPosition;
 @property (assign, nonatomic) int docButtonPosition;
