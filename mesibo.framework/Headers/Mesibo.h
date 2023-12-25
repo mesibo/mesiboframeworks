@@ -734,13 +734,17 @@
 -(nullable MesiboProfile *) getCurrentStatusSender;
 -(int) getCurrentStatus;
 
+-(uint64_t) getMessageId;
+-(void) setMessageId:(uint32_t) mid;
 -(int) getStatus;
 -(void) setStatus:(int)status;
 -(int) getExpiry;
 -(void) setExpiry:(int)expiry;
 -(int) getType;
 -(void) setType:(int)type;
+-(int) getOrigin;
 -(void) setFlag:(uint64_t) flag;
+-(void) setInReplyToMessage:(MesiboMessage * _Nonnull) message;
 -(void) setInReplyTo:(uint64_t) messageid;
 -(uint64_t) getInReplyTo;
 -(BOOL) isReply;
@@ -809,6 +813,9 @@
 -(BOOL) isMessage;
 
 -(BOOL) isDestinedFor:(MesiboProfile * _Nonnull) profile;
+-(MesiboProfile * _Nullable) getProfile;
+-(MesiboProfile * _Nullable) getSenderProfile;
+-(MesiboGroupProfile * _Nullable) getGroupProfile;
 
 -(void) setAge:(uint32_t) age;
 -(void) setAgeAfterDelivered:(uint32_t) age;
@@ -1077,6 +1084,9 @@ typedef MesiboProfile MesiboAddress;
 -(void) setForwarded:(NSArray<NSNumber *> * _Nonnull) fids;
 -(void) setForwardedMid:(uint64_t) fid;
 -(MesiboMessage * _Nonnull) forward:(MesiboProfile * _Nonnull) profile;
+-(MesiboMessage * _Nonnull) reply;
+-(MesiboMessage * _Nonnull) replyToSender;
+
 -(int) save;
 -(BOOL) delete;
 -(BOOL) wipe;
@@ -1140,7 +1150,7 @@ typedef MesiboProfile MesiboAddress;
 -(int) getUnreadMessageCount;
 -(int) getFailedMessageCount;
 -(void) enableReadReceipt:(BOOL) enable ;
--(void) enableSummary:(BOOL) enable ;
+-(void) enableSummary:(BOOL) enable __deprecated_msg("Use MesiboReadSession.createReadSummarySession instead");
 -(void) enableFifo:(BOOL) enable ;
 -(void) enableFiles:(BOOL) enable ;
 -(void) enableThreads:(BOOL) enable;
