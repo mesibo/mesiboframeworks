@@ -1120,9 +1120,8 @@ typedef MesiboProfile MesiboAddress;
 @interface MesiboReadSession : NSObject
 +(MesiboReadSession * _Nullable) getSession:(uint64_t)sessionid;
 +(MesiboReadSession * _Nonnull) createReadSummarySession:(id _Nonnull) listener;
++(MesiboReadSession * _Nonnull) createReadSession:(id _Nonnull) listener;
 
-- (id _Nonnull)initWith:(MesiboProfile * _Nonnull)profile listener:(id _Nullable) listener;
-- (id _Nonnull)initWith:(id _Nullable) listener;
 - (uint64_t) getSession;
 
 +(void)endAllSessions;
@@ -1143,6 +1142,9 @@ typedef MesiboProfile MesiboAddress;
 -(void) setThreadId:(uint64_t) tid;
 -(void) setQuery:(NSString * _Nullable) query;
 
+-(BOOL) isSummary;
+-(MesiboProfile * _Nullable) getProfile;
+
 -(int) getMessageCount:(int) status;
 -(int) getTotalMessageCount;
 -(int) getSentMessageCount;
@@ -1150,7 +1152,7 @@ typedef MesiboProfile MesiboAddress;
 -(int) getUnreadMessageCount;
 -(int) getFailedMessageCount;
 -(void) enableReadReceipt:(BOOL) enable ;
--(void) enableSummary:(BOOL) enable __deprecated_msg("Use MesiboReadSession.createReadSummarySession instead");
+//-(void) enableSummary:(BOOL) enable __deprecated_msg("Use MesiboReadSession.createReadSummarySession instead");
 -(void) enableFifo:(BOOL) enable ;
 -(void) enableFiles:(BOOL) enable ;
 -(void) enableThreads:(BOOL) enable;
