@@ -736,6 +736,7 @@
 
 -(uint64_t) getMessageId;
 -(void) setMessageId:(uint32_t) mid;
+-(uint64_t) getFlags __deprecated_msg("This function is for internal use only. It can change anytime and you should not use it.");
 -(int) getStatus;
 -(void) setStatus:(int)status;
 -(int) getExpiry;
@@ -978,7 +979,6 @@ typedef MesiboProfile MesiboAddress;
 -(BOOL) hasLeft;
 @end
 
-// For internal use only - will be for public use from v2.0
 @interface MesiboMessage : MesiboMessageProperties
 @property (nonatomic, nullable) NSData *data;
 @property (nonatomic, nullable) NSString *title;
