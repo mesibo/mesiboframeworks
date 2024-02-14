@@ -177,8 +177,6 @@
 
 @property (nonatomic) BOOL useLetterTitleImage;
 
-@property (nonatomic) BOOL enableVoiceCall;
-@property (nonatomic) BOOL enableVideoCall;
 @property (nonatomic) BOOL enableForward;
 @property (nonatomic) BOOL enableEdit;
 @property (nonatomic) BOOL enableReply;
