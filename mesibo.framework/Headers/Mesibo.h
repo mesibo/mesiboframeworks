@@ -590,6 +590,7 @@
 -(void) setDouble:(NSString * _Nonnull) name value:(double) value;
 -(void) setBoolean:(NSString * _Nonnull) name value:(BOOL) value;
 
+-(int) hasValue:(NSString * _Nonnull) name;
 -(NSDictionary * _Nonnull) getValues;
 -(id _Nullable) getValue:(NSString * _Nonnull) name;
 -(NSString * _Nullable) getString:(NSString * _Nonnull) name defval:(NSString * _Nullable) defval;
