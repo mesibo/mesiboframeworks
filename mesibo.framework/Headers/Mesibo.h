@@ -1420,7 +1420,6 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(void) setPushRegistryCompletion:(nullable void (^)(void))completion;
 -(uint32_t) getAccessTokenValidity;
 -(int) setBufferLen:(int)length empty:(BOOL)empty;
--(void) setSecureConnection:(BOOL) enable;
 -(void) setConfiuration:(uint32_t) type value:(uint32_t)value;
 -(void) setConfiuration:(uint32_t) type svalue:(nullable NSString *)svalue;
 //********************** Listner *********************************************
