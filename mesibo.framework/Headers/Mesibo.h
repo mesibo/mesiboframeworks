@@ -662,6 +662,8 @@
 -(int) getUnreadMessageCount;
 -(int) getFailedMessageCount;
 -(int) unread;
+-(int) markUnread;
+-(int) markRead:(BOOL) sendReadReceipt;
 
 -(int) subscribeTransient:(uint32_t)type activity:(uint32_t)activity duration:(uint32_t) duration;
 
