@@ -1756,7 +1756,8 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(MesiboLocation * _Nullable) getCustomLocation;
 -(MesiboLocation * _Nullable) getLocation;
 
--(BOOL) setVisibility:(int) visibility;
+-(void) setAccessLevels:(NSArray<NSNumber *> * _Nullable) accessLevels;
+
 -(void) setSearchableDistance:(uint32_t) distance;
 
 -(void) startDistanceTracking:(uint32_t)duration;
