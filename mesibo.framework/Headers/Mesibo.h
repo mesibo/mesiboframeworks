@@ -474,6 +474,7 @@
 @end
 
 @interface MesiboPhoneContactsManager : NSObject
++(MesiboPhoneContactsManager * _Nonnull) getInstance;
 -(void) setListener:(id<MesiboPhoneContactsListener>  _Nonnull) listener;
 -(void) setSynchronizers:(MesiboContactSynchronizer * _Nullable) addSyncer deleteSyncer:(MesiboContactSynchronizer * _Nullable) deleteSyncer;
 -(void) syncMobileNumbers:(BOOL) enable;
@@ -1739,7 +1740,10 @@ typedef void (^Mesibo_onRunHandler)(void);
 @end
 
 @interface MesiboLocationManager : NSObject
--(BOOL) start:(MesiboLocationConfig * _Nonnull) config;
++(MesiboLocationManager * _Nonnull) getInstance;
+
+-(BOOL) start:(MesiboLocationConfig * _Nullable) config;
+-(BOOL) start;
 -(void) stop;
 -(BOOL) addListener:(id<MesiboLocationListener> _Nonnull) listener;
 -(void) removeListener:(id<MesiboLocationListener> _Nonnull) listener;
