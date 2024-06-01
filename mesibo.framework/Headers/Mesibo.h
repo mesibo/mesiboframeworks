@@ -1725,6 +1725,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 
 
 @interface MesiboProfileSearch : NSObject
+-(uint64_t) getRequestId;
 -(void) setListener:(id<MesiboProfileSearchListener> _Nonnull) listener;
 -(void) subscribe:(uint32_t)duration;
 -(void) enableGroupSearch:(BOOL)groupSearch;
