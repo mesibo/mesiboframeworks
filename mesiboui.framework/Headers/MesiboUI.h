@@ -329,6 +329,9 @@
 @property (copy, nonatomic, nonnull) NSString *clearTitle;
 @property (copy, nonatomic, nonnull) NSString *clearAlertTitle;
 
+@property (copy, nonatomic, nonnull) NSString *sendLimitReachedTitle;
+@property (copy, nonatomic, nonnull) NSString *sendLimitReached;
+
 @property (assign, nonatomic) int clearMessageMode;
 @property (assign, nonatomic) BOOL clearedMessageContactTimestamp;
 
