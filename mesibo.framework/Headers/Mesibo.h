@@ -1484,10 +1484,11 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(BOOL) addListener:(nonnull id)delegate;
 -(BOOL) removeListner:(nonnull id)delegate;
 
-//********************** Live Connection **************************************
+//********************** real-time connection **************************************
 -(int) start;
 -(int) stop;
 -(BOOL) reconnect:(int) inFocus;
+-(void) unreachable:(int)type duration:(uint32_t)duration;
 -(BOOL) isAccountSuspended;
 -(BOOL) isAccountPaid;
 -(int) getConnectionStatus;
