@@ -228,6 +228,7 @@
 
 @property (nonatomic) BOOL showRecentInForward;
 @property (nonatomic) BOOL mConvertSmilyToEmoji;
+@property (nonatomic) BOOL forceScrollToLatest;
 
 @property (assign, nonatomic, nullable) int *mLetterTitleColors;
 @property (assign, nonatomic) uint32_t mToolbarColor;
