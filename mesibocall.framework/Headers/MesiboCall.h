@@ -203,8 +203,8 @@
 @property (nonatomic) NSURL * _Nullable inCallRingSound;
 @property (nonatomic) NSURL * _Nullable inCallBusySound;
 
-
-@property (nonatomic) NSMutableArray * _Nullable iceServers;
+// use User Access Control
+//@property (nonatomic) NSMutableArray * _Nullable iceServers;
 
 @property (nonatomic) BOOL enableCallKit; // requires CallKit to be enabled first
 
@@ -398,7 +398,8 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 -(BOOL) groupCallJoinRoomUi:(id _Nonnull)parent;
 -(BOOL) groupCallUi:(id _Nonnull)parent profile:(MesiboProfile * _Nonnull)profile video:(BOOL)video audio:(BOOL)audio videoMute:(BOOL)videoMute audioMute:(BOOL)audioMute publish:(BOOL)publish;
 
--(BOOL) setTurnCredentials:(NSString * _Nonnull) user password:(NSString * _Nonnull) password;
+// Use User Access Control
+//-(BOOL) setTurnCredentials:(NSString * _Nonnull) user password:(NSString * _Nonnull) password;
 
 -(void) notify:(MesiboCallProperties * _Nonnull)cp;
 @end

@@ -347,6 +347,8 @@
 @property (nonatomic) BOOL showLastSeenInProfileView;
 @property (nonatomic) BOOL showGroupMembersInProfileView;
 
+@property (nonatomic) BOOL signedFiles;
+
 @property (assign, nonatomic) UITableViewCellAccessoryType userListCellAccessoryType;
 
 @end
