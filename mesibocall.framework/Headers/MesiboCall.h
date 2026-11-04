@@ -38,6 +38,16 @@
 #define MESIBOCALL_UI_STATE_SHOWINPROGRESS       2
 #define MESIBOCALL_UI_STATE_SHOWCONTROLS         3
 
+/** MesiboCallUiProperties.answerMode: how an incoming call is answered */
+#define MESIBOCALL_ANSWER_TAP                0
+#define MESIBOCALL_ANSWER_SWIPE              1   // slide right to answer, left to decline
+#define MESIBOCALL_ANSWER_SWIPE_ON_LOCK      2   // swipe when the phone is locked, else tap
+
+/** MesiboCallUiProperties.orientation of the call screens */
+#define MESIBOCALL_ORIENTATION_AUTO          0   // follow the device
+#define MESIBOCALL_ORIENTATION_PORTRAIT      1
+#define MESIBOCALL_ORIENTATION_LANDSCAPE     2
+
 #define MESIBOCALL_HANGUP_REASON_USER       1
 #define MESIBOCALL_HANGUP_REASON_REMOTE     2
 #define MESIBOCALL_HANGUP_REASON_ERROR      3
@@ -143,11 +153,33 @@
 @property (nonatomic) NSString * _Nullable title;
 @property (nonatomic) UIImage * _Nullable userImage;
 @property (nonatomic) UIImage * _Nullable userImageSmall;
+/** background of voice calls and ringing (behind no video), 0xAARRGGBB; see backgroundColors */
 @property (nonatomic) uint32_t backgroundColor;
+/**
+ * gradient background instead of backgroundColor: two or more 0xAARRGGBB colors (NSNumber), top
+ * to bottom. nil: backgroundColor (by default, teal fading to a darker teal)
+ */
+@property (nonatomic, copy) NSArray<NSNumber *> * _Nullable backgroundColors;
 @property (nonatomic) BOOL showScreenSharing;
 @property (nonatomic) BOOL autoHideControls;
 @property (nonatomic) BOOL autoSwapVideoViews;
 @property (nonatomic) BOOL useMetalKit;
+/**
+ * Orientation of the call screens (one-to-one, group, join room): MESIBOCALL_ORIENTATION_PORTRAIT
+ * (default), _LANDSCAPE or _AUTO to follow the device. iPad always follows the device.
+ */
+@property (nonatomic) int orientation;
+/** answered video call: continue in a floating window (picture-in-picture) when minimised or the app goes to the background */
+@property (nonatomic) BOOL pictureInPicture;
+/**
+ * incoming call: MESIBOCALL_ANSWER_SWIPE (default), _SWIPE_ON_LOCK or _TAP. Swiping avoids
+ * answering by accident (e.g. in a pocket). Always taps with VoiceOver.
+ */
+@property (nonatomic) int answerMode;
+/** incoming video call: a camera on/off choice - answer with the camera off, turn it on later */
+@property (nonatomic) BOOL showAnswerVideoMute;
+/** incoming video call: also a Voice button (answers without video for the whole call) */
+@property (nonatomic) BOOL showAudioAnswerButton;
 @property (nonatomic) id _Nullable inProgressListener; // only a few listeners will be invoked
 @property (nonatomic) NSString * _Nullable callStatusText;
 @end
@@ -192,11 +224,22 @@
 
 @property (nonatomic) BOOL hangup;
 @property (nonatomic) BOOL autoAnswer;
+/**
+ * incoming call (without CallKit) while the app is on screen: open the call screen directly (it
+ * rings) instead of the notification. NO: always the notification
+ */
 @property (nonatomic) BOOL autoDetectAppState;
 @property (nonatomic) BOOL disableSpeakerOnProximity;
 @property (nonatomic) BOOL hideOnProximity;
 @property (nonatomic) BOOL runInBackground;
-@property (nonatomic) BOOL stopVideoInBackground;
+/**
+ * Keep sending your video while the call screen is not visible (app in the background,
+ * minimised). NO: the camera turns off meanwhile and back on when the call screen shows again.
+ * Audio continues either way. Picture-in-picture counts as visible. Note: iOS stops the camera in
+ * the background unless the app has the multitasking camera access entitlement.
+ * (Replaces stopVideoInBackground, reversed.)
+ */
+@property (nonatomic) BOOL sendVideoInBackground;
 @property (nonatomic) BOOL holdOnCellularIncoming;
 @property (nonatomic) BOOL checkNetworkConnection;
 
@@ -346,6 +389,20 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 -(MesiboCallProperties * _Nullable) MesiboGroupcall_OnIncoming:(MesiboProfile * _Nonnull)groupProfile profile:(MesiboProfile * _Nonnull)profile active:(BOOL)active;
 @end
 
+/**
+ * Calls starting and ending, e.g. to show a call in progress in the app's screens. Called on the
+ * main thread; every started call is followed by one ended call.
+ */
+@protocol MesiboCallMonitorListener <NSObject>
+/**
+ * a call started: an outgoing call was placed, an incoming call was answered, or a group call was
+ * joined. profile: the other side, or the group
+ */
+-(void) MesiboCall_onCallStarted:(MesiboProfile * _Nonnull)profile incoming:(BOOL)incoming video:(BOOL)video NS_SWIFT_NAME(MesiboCall_onCallStarted(profile:incoming:video:));
+/** a started call ended (hung up by either side, or failed) */
+-(void) MesiboCall_onCallEnded:(MesiboProfile * _Nonnull)profile incoming:(BOOL)incoming video:(BOOL)video NS_SWIFT_NAME(MesiboCall_onCallEnded(profile:incoming:video:));
+@end
+
 @interface MesiboCall : NSObject
 
 + (MesiboCall* _Nonnull) getInstance;
@@ -354,7 +411,26 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 +(void) testRing;
 
 -(MesiboCallApi *_Nullable) getActiveCall;
--(NSBundle * _Nullable) getResourceBundle;
+
+/** listeners are held weakly */
+-(void) addCallMonitorListener:(id<MesiboCallMonitorListener> _Nonnull)listener;
+-(void) removeCallMonitorListener:(id<MesiboCallMonitorListener> _Nonnull)listener;
+/** a one-to-one or group call is in progress */
+-(BOOL) isAnyCallInProgress;
+/** the call screen is showing (full screen or picture-in-picture) */
+-(BOOL) isCallScreenVisible;
+/**
+ * brings back the screen of the call in progress (minimised, picture-in-picture or closed); NO if
+ * no call is in progress
+ */
+-(BOOL) showCallInProgress:(id _Nullable)parent;
+
+/**
+ * The call log: all calls, newest first, with call back, the calls with each contact, and
+ * deleting calls. Pushed when parent is in a navigation controller, else presented in one.
+ * (MesiboCallUi.launchCallLogs on Android.)
+ */
+-(BOOL) launchCallLogs:(id _Nonnull)parent;
 
 -(void) setListener:(_Nonnull id<MesiboCallIncomingListener>) delegate;
 -(void) setGroupCallListener:(_Nonnull id<MesiboGroupCallIncomingListener>) delegate;
@@ -362,6 +438,7 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 -(MesiboCallApi * _Nullable)call:(MesiboCallProperties * _Nonnull)cc;
 
 -(BOOL) callUi:(MesiboCallProperties * _Nonnull)cc;
+/** a call in progress: brings back its screen instead of starting another call (returns NO) */
 -(BOOL) callUi:(id _Nonnull)parent profile:(MesiboProfile * _Nonnull)profile video:(BOOL)video;
 -(BOOL) callUi:(id _Nonnull)parent profile:(MesiboProfile * _Nonnull)profile video:(BOOL)video audio:(BOOL)audio videoMute:(BOOL)videoMute audioMute:(BOOL)audioMute;
 -(BOOL) callUiForExistingCall:(id _Nonnull)parent;
@@ -375,9 +452,6 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 -(BOOL) enableCallKit:(BOOL)detectRegulatoryRestrictions icon:(UIImage *_Nonnull)icon recentLogs:(BOOL) recentLogs;
 -(void) enablePushKit:(BOOL) enable; // mandatory call
 -(void) enableCallWaiting:(BOOL)enable;
-
-+(UIImage * _Nullable) getImage:(NSBundle * _Nonnull)bundle name:(NSString * _Nonnull)name;
-+(UIImage * _Nullable) getColoredImage:(NSBundle * _Nonnull)bundle name:(NSString * _Nonnull)name color:(UIColor * _Nullable)color;
 
 +(BOOL) checkPermissions:(BOOL)video handler:(MesiboPermissionBlock _Nonnull) handler;
 
@@ -396,6 +470,8 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 -(MesiboGroupCall * _Nullable) groupCall:(id _Nonnull)controller groupid:(uint32_t) groupid;
 
 -(BOOL) groupCallJoinRoomUi:(id _Nonnull)parent;
+/** the join room screen with a title, e.g. "Mesibo Conferencing Demo" */
+-(BOOL) groupCallJoinRoomUi:(id _Nonnull)parent title:(NSString * _Nullable)title;
 -(BOOL) groupCallUi:(id _Nonnull)parent profile:(MesiboProfile * _Nonnull)profile video:(BOOL)video audio:(BOOL)audio videoMute:(BOOL)videoMute audioMute:(BOOL)audioMute publish:(BOOL)publish;
 
 // Use User Access Control

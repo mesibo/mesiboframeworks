@@ -1,5 +1,5 @@
 framework module mediapicker {
- umbrella header "ImagePicker.h"
+ umbrella header "MesiboMediaPicker.h"
 
  module * { export * }
 
