@@ -1,7 +1,0 @@
-framework module MesiboUIHelper {
- umbrella header "MesiboUIHelper.h"
-
- module * { export * }
-
- export *
-}

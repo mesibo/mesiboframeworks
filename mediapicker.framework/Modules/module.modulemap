@@ -1,7 +1,0 @@
-framework module mediapicker {
- umbrella header "MesiboMediaPicker.h"
-
- module * { export * }
-
- export *
-}
